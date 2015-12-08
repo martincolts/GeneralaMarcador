@@ -79,6 +79,11 @@ public class MainMenu {
 		frame.getContentPane().add(btnEliminar);
 		
 		JButton btnEmpezar = new JButton("Empezar");
+		btnEmpezar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new Tablero(tablaPuntajes).setVisible(true);
+			}
+		});
 		btnEmpezar.setBounds(551, 377, 89, 23);
 		frame.getContentPane().add(btnEmpezar);
 	}
