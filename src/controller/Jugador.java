@@ -4,6 +4,7 @@ public class Jugador implements Comparable<Jugador>{
 	
 	private String nombre = null ;
 	private Integer puntaje = new Integer (0);
+	private Puntos puntos ;
 	
 	public Jugador (String nombre){
 		this.nombre = nombre ;
@@ -24,6 +25,10 @@ public class Jugador implements Comparable<Jugador>{
 	@Override
 	public int compareTo(Jugador o) {
 		return puntaje.compareTo(o.getPuntaje());
+	}
+	
+	public Puntos getPuntos (){
+		return puntos;
 	}
 	
 }

@@ -1,16 +1,19 @@
 package view;
 
-import java.awt.BorderLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
+import controller.Punto;
 import controller.TablaPuntajes;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
 
 public class Tablero extends JFrame {
 
@@ -20,6 +23,7 @@ public class Tablero extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable table;
+	private JScrollPane scrollPane_1;
 
 	/**
 	 * Create the frame.
@@ -30,11 +34,8 @@ public class Tablero extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 679, 550);
-		contentPane.add(scrollPane);
 		
 		DefaultTableModel modelo = new DefaultTableModel(new Object[][] {
 			{"1"},
@@ -69,15 +70,84 @@ public class Tablero extends JFrame {
 					}
 					modelo.addColumn(tablaPuntajes.getListaJugadores().elementAt(i).toString());
 				}
+				for (int i = 0 ; i < 11 ; i++){
+					for (int j = 1 ; j <=tablaPuntajes.getListaJugadores().size();j++){
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						modelo.setValueAt(0, i, j);
+					}
+				}
+				table.getModel().addTableModelListener(
+						new TableModelListener() 
+						{
+						    public void tableChanged(TableModelEvent evt) 
+						    {
+						    	int col =evt.getColumn();
+						    	int fil =evt.getFirstRow();
+						        Punto p = new Punto ((int)modelo.getValueAt(fil, col),col,fil);
+						         
+						    }
+						});
+				
 			};
 
 		}).start();
 		
+		
+		
 		table.getColumnModel().getColumn(0).setPreferredWidth(80);
-		table.getColumnModel().getColumn(0).setMinWidth(50);
+		table.getColumnModel().getColumn(0).setMinWidth(100);
 		scrollPane.setViewportView(table);
 		
+		scrollPane_1 = new JScrollPane();
 		
+		JButton btnAgregarPuntaje = new JButton("Agregar Puntaje");
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addGap(5)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 671, Short.MAX_VALUE)
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnAgregarPuntaje))
+					.addContainerGap())
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(6)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(scrollPane)
+							.addContainerGap())
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(btnAgregarPuntaje)
+							.addGap(314))))
+		);
+		contentPane.setLayout(gl_contentPane);
 		
+	/*	table.getModel().addTableModelListener(
+				new TableModelListener() 
+				{
+				    public void tableChanged(TableModelEvent evt) 
+				    {
+				    	int col =evt.getColumn();
+				    	int fil =evt.getFirstRow();
+				    	
+				    	System.out.println(modelo.getValueAt(fil, col));
+				         //Punto p = new Punto ((int)evt.getSource(),col,fil);
+				         
+				    }
+				});*/
+	
+	
 	}
 }

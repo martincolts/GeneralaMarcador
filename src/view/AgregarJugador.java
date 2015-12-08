@@ -36,14 +36,16 @@ public class AgregarJugador extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER){
-					tablaPuntajes.agregarJugador (new Jugador (textField.getText()));
-					tablaPuntajes.getListaJugadores().addElement(textField.getText());
-					setVisible(false);
-					try {
-						this.finalize();
-					} catch (Throwable e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					if (textField.getText().length()>0){
+						tablaPuntajes.agregarJugador (new Jugador (textField.getText()));
+						tablaPuntajes.getListaJugadores().addElement(textField.getText());
+						setVisible(false);
+						try {
+							this.finalize();
+						} catch (Throwable e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				}
 			}
@@ -55,16 +57,17 @@ public class AgregarJugador extends JFrame {
 		JButton btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tablaPuntajes.agregarJugador (new Jugador (textField.getText()));
-				tablaPuntajes.getListaJugadores().addElement(textField.getText());
-				setVisible(false);
-				try {
-					this.finalize();
-				} catch (Throwable e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				if (textField.getText().length()>0){
+					tablaPuntajes.agregarJugador (new Jugador (textField.getText()));
+					tablaPuntajes.getListaJugadores().addElement(textField.getText());
+					setVisible(false);
+					try {
+						this.finalize();
+					} catch (Throwable e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
-				
 			}
 		});
 		btnAgregar.setBounds(87, 54, 89, 23);
