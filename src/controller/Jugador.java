@@ -4,7 +4,7 @@ public class Jugador implements Comparable<Jugador>{
 	
 	private String nombre = null ;
 	private Integer puntaje = new Integer (0);
-	private Puntos puntos ;
+	private Puntos puntos = new Puntos();
 	
 	public Jugador (String nombre){
 		this.nombre = nombre ;

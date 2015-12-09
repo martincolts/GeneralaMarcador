@@ -61,36 +61,38 @@ public class Tablero extends JFrame {
 
 			@Override
 			public void run() {
-				
-				for (int i = 0 ; i < tablaPuntajes.getListaJugadores().size();i++){
-					try {
-						Thread.sleep(500);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					modelo.addColumn(tablaPuntajes.getListaJugadores().elementAt(i).toString());
-				}
-				for (int i = 0 ; i < 11 ; i++){
-					for (int j = 1 ; j <=tablaPuntajes.getListaJugadores().size();j++){
+				synchronized (this) {
+
+
+					for (int i = 0 ; i < tablaPuntajes.getListaJugadores().size();i++){
 						try {
-							Thread.sleep(100);
+							Thread.sleep(500);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						modelo.setValueAt(0, i, j);
+						modelo.addColumn(tablaPuntajes.getListaJugadores().elementAt(i).toString());
 					}
-				}
-				table.getModel().addTableModelListener(
-						new TableModelListener() 
-						{
-						    public void tableChanged(TableModelEvent evt) 
-						    {
-						    	int col =evt.getColumn();
-						    	int fil =evt.getFirstRow();
-						    	
-						     /*   
+					for (int i = 0 ; i < 11 ; i++){
+						for (int j = 1 ; j <=tablaPuntajes.getListaJugadores().size();j++){
+							try {
+								Thread.sleep(100);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							modelo.setValueAt(0, i, j);
+						}
+					}
+					table.getModel().addTableModelListener(
+							new TableModelListener() 
+							{
+								public void tableChanged(TableModelEvent evt) 
+								{
+									int col =evt.getColumn();
+									int fil =evt.getFirstRow();
+
+									/*   
 								try {
 									Punto p = new Punto ((int)modelo.getValueAt(fil, col),col,fil);
 									tablaPuntajes.getJugadores().elementAt(col-1).getPuntos().addPunto(p);
@@ -98,11 +100,12 @@ public class Tablero extends JFrame {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
-						        
-						         */
-						    }
-						});
-				
+
+									 */
+								}
+							});
+				}
+
 			};
 
 		}).start();
