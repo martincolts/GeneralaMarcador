@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
+import controller.Jugador;
 import controller.Punto;
 import controller.TablaPuntajes;
 import javax.swing.JScrollPane;
@@ -88,8 +89,17 @@ public class Tablero extends JFrame {
 						    {
 						    	int col =evt.getColumn();
 						    	int fil =evt.getFirstRow();
-						        Punto p = new Punto ((int)modelo.getValueAt(fil, col),col,fil);
-						         
+						    	
+						     /*   
+								try {
+									Punto p = new Punto ((int)modelo.getValueAt(fil, col),col,fil);
+									tablaPuntajes.getJugadores().elementAt(col-1).getPuntos().addPunto(p);
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+						        
+						         */
 						    }
 						});
 				

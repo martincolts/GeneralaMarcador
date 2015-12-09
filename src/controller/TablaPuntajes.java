@@ -44,4 +44,8 @@ public class TablaPuntajes {
 		return nombres;
 	}
 	
+	public Vector<Jugador> getJugadores (){
+		return jugadores ;
+	}
+	
 }
